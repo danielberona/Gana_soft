@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ganasoft-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ganasoft_root_2024}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ganasoft}
+      MYSQL_USER: ${MYSQL_USER:-ganasoft_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-ganasoft_pass_2024}
+    ports:
+      - "3307:3306"
+    volumes:
+      - ganasoft_mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  ganasoft_mysql_data:
+    driver: local

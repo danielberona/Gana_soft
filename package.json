@@ -1,0 +1,17 @@
+{
+  "name": "ganasoft",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "db:migrate": "pnpm --filter @ganasoft/api prisma migrate dev",
+    "db:seed": "pnpm --filter @ganasoft/api prisma db seed",
+    "db:studio": "pnpm --filter @ganasoft/api prisma studio"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0"
+  },
+  "packageManager": "pnpm@10.8.0"
+}

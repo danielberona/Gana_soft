@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  email     String   @unique
+  password  String
+  rol       Rol      @default(EMPLEADO)
+  activo    Boolean  @default(true)
+  creadoEn  DateTime @default(now())
+  animales  Animal[]
+
+  @@map("usuarios")
+}
+
+model Animal {
+  id            Int          @id @default(autoincrement())
+  codigo        String       @unique
+  nombre        String?
+  especie       Especie
+  raza          String?
+  sexo          Sexo
+  fechaNac      DateTime?
+  peso          Float?
+  estado        EstadoAnimal @default(ACTIVO)
+  observaciones String?
+  creadoEn      DateTime     @default(now())
+  actualizadoEn DateTime     @updatedAt
+  usuarioId     Int?
+  usuario       Usuario?     @relation(fields: [usuarioId], references: [id])
+  registros     RegistroSalud[]
+  producciones  Produccion[]
+
+  @@map("animales")
+}
+
+model RegistroSalud {
+  id          Int      @id @default(autoincrement())
+  animalId    Int
+  animal      Animal   @relation(fields: [animalId], references: [id])
+  tipo        String
+  descripcion String   @db.Text
+  fecha       DateTime @default(now())
+  veterinario String?
+  costo       Float?
+  creadoEn    DateTime @default(now())
+
+  @@map("registros_salud")
+}
+
+model Produccion {
+  id       Int      @id @default(autoincrement())
+  animalId Int
+  animal   Animal   @relation(fields: [animalId], references: [id])
+  tipo     String
+  cantidad Float
+  unidad   String
+  fecha    DateTime @default(now())
+  creadoEn DateTime @default(now())
+
+  @@map("producciones")
+}
+
+enum Rol {
+  ADMIN
+  EMPLEADO
+}
+
+enum Especie {
+  BOVINO
+  PORCINO
+  OVINO
+  CAPRINO
+  EQUINO
+  AVICOLA
+  OTRO
+}
+
+enum Sexo {
+  MACHO
+  HEMBRA
+}
+
+enum EstadoAnimal {
+  ACTIVO
+  VENDIDO
+  MUERTO
+  TRANSFERIDO
+}
