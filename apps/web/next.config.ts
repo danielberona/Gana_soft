@@ -1,9 +1,14 @@
-import createNextIntlPlugin from 'next-intl/plugin';
+import type { NextConfig } from 'next'
 
-const withNextIntl = createNextIntlPlugin();
+const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:4000'}/api/:path*`,
+      },
+    ]
+  },
+}
 
-const nextConfig = {
-  /* config options here */
-};
-
-export default withNextIntl(nextConfig);
+export default nextConfig

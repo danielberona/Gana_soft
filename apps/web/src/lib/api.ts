@@ -1,31 +1,38 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'
 
 interface FetchOptions extends RequestInit {
-  params?: Record<string, string>;
+  token?: string
 }
 
-export async function api<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
-  const { params, ...fetchOptions } = options;
-  
-  let url = `${API_URL}${endpoint}`;
-  if (params) {
-    const searchParams = new URLSearchParams(params);
-    url += `?${searchParams.toString()}`;
+async function apiFetch<T>(path: string, options: FetchOptions = {}): Promise<T> {
+  const { token, ...rest } = options
+
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(rest.headers as Record<string, string>),
   }
 
-  const res = await fetch(url, {
-    ...fetchOptions,
+  if (token) headers['Authorization'] = `Bearer ${token}`
+
+  const res = await fetch(`${API_BASE}${path}`, {
+    ...rest,
+    headers,
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      ...fetchOptions.headers,
-    },
-  });
+  })
 
   if (!res.ok) {
-    const error = await res.json().catch(() => ({ error: 'Error de red' }));
-    throw new Error(error.error || `HTTP ${res.status}`);
+    const error = await res.json().catch(() => ({ error: 'Error desconocido' }))
+    throw new Error(error.error || `HTTP ${res.status}`)
   }
 
-  return res.json();
+  return res.json()
+}
+
+export const api = {
+  get: <T>(path: string, opts?: FetchOptions) => apiFetch<T>(path, { method: 'GET', ...opts }),
+  post: <T>(path: string, body: unknown, opts?: FetchOptions) =>
+    apiFetch<T>(path, { method: 'POST', body: JSON.stringify(body), ...opts }),
+  patch: <T>(path: string, body: unknown, opts?: FetchOptions) =>
+    apiFetch<T>(path, { method: 'PATCH', body: JSON.stringify(body), ...opts }),
+  delete: <T>(path: string, opts?: FetchOptions) => apiFetch<T>(path, { method: 'DELETE', ...opts }),
 }
