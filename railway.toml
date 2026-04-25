@@ -1,0 +1,5 @@
+[build]
+builder = "nixpacks"
+
+[build.env]
+NIXPACKS_PNPM_FLAGS = "--no-frozen-lockfile"
