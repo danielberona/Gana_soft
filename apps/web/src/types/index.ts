@@ -18,7 +18,7 @@ export interface Usuario {
 export interface Potrero {
   id: number
   nombre: string
-  area?: number
+  hectareas?: number
   capacidad?: number
   descripcion?: string
   activo: boolean
@@ -82,9 +82,10 @@ export interface Vacunacion {
   dosis?: string
   lote?: string
   fecha: string
-  proximaFecha?: string
+  proximaDosis?: string
   veterinario?: string
   costo?: number
+  observaciones?: string
   animal?: { codigo: string; nombre?: string; especie?: Especie }
 }
 
@@ -93,9 +94,10 @@ export interface EventoReproductivo {
   animalId: number
   tipo: TipoEvento
   fecha: string
-  descripcion?: string
+  observaciones?: string
   resultado?: string
   padreId?: number
+  costo?: number
   animal?: { codigo: string; nombre?: string; especie?: Especie; sexo?: Sexo }
 }
 
@@ -114,8 +116,10 @@ export interface Tarea {
   titulo: string
   descripcion?: string
   fecha: string
+  fechaVencimiento?: string
   estado: EstadoTarea
   prioridad: Prioridad
+  asignadoA?: string
   animalId?: number
   animal?: { codigo: string; nombre?: string; especie?: Especie }
   usuarioId?: number

@@ -26,7 +26,7 @@ export default function ReproduccionPage() {
   const [showModal, setShowModal] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
-  const [form, setForm] = useState({ animalId: '', tipo: 'CELO' as TipoEvento, fecha: new Date().toISOString().slice(0, 10), descripcion: '', resultado: '' })
+  const [form, setForm] = useState({ animalId: '', tipo: 'CELO' as TipoEvento, fecha: new Date().toISOString().slice(0, 10), observaciones: '', resultado: '' })
 
   const fetchEventos = useCallback(async () => {
     if (!token) return
@@ -42,26 +42,24 @@ export default function ReproduccionPage() {
   useEffect(() => { fetchEventos() }, [fetchEventos])
   useEffect(() => {
     if (!token) return
-    api.get<{ animales: Animal[] }>('/animales?limit=200&especie=BOVINO', { token }).then(r => setAnimales(r.animales)).catch(console.error)
+    api.get<{ animales: Animal[] }>('/animales?limit=200', { token }).then(r => setAnimales(r.animales)).catch(console.error)
   }, [token])
 
   async function handleSave() {
     setSaving(true); setError('')
     try {
       await api.post('/reproduccion', {
-        ...form, animalId: parseInt(form.animalId),
-        descripcion: form.descripcion || undefined, resultado: form.resultado || undefined,
+        animalId: parseInt(form.animalId),
+        tipo: form.tipo,
+        fecha: form.fecha,
+        observaciones: form.observaciones || undefined,
+        resultado: form.resultado || undefined,
       }, { token: token! })
       setShowModal(false)
-      setForm({ animalId: '', tipo: 'CELO', fecha: new Date().toISOString().slice(0, 10), descripcion: '', resultado: '' })
+      setForm({ animalId: '', tipo: 'CELO', fecha: new Date().toISOString().slice(0, 10), observaciones: '', resultado: '' })
       fetchEventos()
     } catch (e) { setError(e instanceof Error ? e.message : 'Error') } finally { setSaving(false) }
   }
-
-  const conteosPorTipo = pag ? TIPOS.map(tipo => {
-    const count = pag.eventos.filter(e => e.tipo === tipo).length
-    return { tipo, count }
-  }).filter(x => x.count > 0) : []
 
   return (
     <div className="p-6 max-w-5xl">
@@ -89,7 +87,7 @@ export default function ReproduccionPage() {
           <>
             <table className="w-full">
               <thead><tr className="border-b border-gray-100 bg-gray-50">
-                {['Animal', 'Evento', 'Fecha', 'Descripción', 'Resultado'].map(h => <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">{h}</th>)}
+                {['Animal', 'Evento', 'Fecha', 'Observaciones', 'Resultado'].map(h => <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase">{h}</th>)}
               </tr></thead>
               <tbody className="divide-y divide-gray-50">
                 {pag?.eventos?.map((e: EventoReproductivo) => (
@@ -101,7 +99,7 @@ export default function ReproduccionPage() {
                       <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${tipoEventoColor[e.tipo]}`}>{tipoEventoLabel[e.tipo]}</span>
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-500">{new Date(e.fecha).toLocaleDateString('es-CO')}</td>
-                    <td className="px-4 py-3 text-sm text-gray-600 max-w-xs truncate">{e.descripcion || '—'}</td>
+                    <td className="px-4 py-3 text-sm text-gray-600 max-w-xs truncate">{e.observaciones || '—'}</td>
                     <td className="px-4 py-3 text-sm text-gray-600">{e.resultado || '—'}</td>
                   </tr>
                 ))}
@@ -149,8 +147,8 @@ export default function ReproduccionPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1.5">Descripción</label>
-                <textarea value={form.descripcion} onChange={e => setForm(p => ({ ...p, descripcion: e.target.value }))} rows={3} placeholder="Detalles del evento reproductivo..." className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm resize-none" />
+                <label className="block text-xs font-medium text-gray-600 mb-1.5">Observaciones</label>
+                <textarea value={form.observaciones} onChange={e => setForm(p => ({ ...p, observaciones: e.target.value }))} rows={3} placeholder="Detalles del evento reproductivo..." className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm resize-none" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1.5">Resultado</label>

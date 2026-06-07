@@ -17,7 +17,7 @@ export default function PotrerosPage() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [verAnimales, setVerAnimales] = useState<number | null>(null)
-  const [form, setForm] = useState({ nombre: '', area: '', capacidad: '', descripcion: '' })
+  const [form, setForm] = useState({ nombre: '', hectareas: '', capacidad: '', descripcion: '' })
 
   const fetchPotreros = useCallback(async () => {
     if (!token) return
@@ -37,13 +37,13 @@ export default function PotrerosPage() {
     setVerAnimales(id)
   }
 
-  function openCreate() { setEditPotrero(null); setForm({ nombre: '', area: '', capacidad: '', descripcion: '' }); setError(''); setShowModal(true) }
-  function openEdit(p: Potrero) { setEditPotrero(p); setForm({ nombre: p.nombre, area: p.area ? String(p.area) : '', capacidad: p.capacidad ? String(p.capacidad) : '', descripcion: p.descripcion || '' }); setError(''); setShowModal(true) }
+  function openCreate() { setEditPotrero(null); setForm({ nombre: '', hectareas: '', capacidad: '', descripcion: '' }); setError(''); setShowModal(true) }
+  function openEdit(p: Potrero) { setEditPotrero(p); setForm({ nombre: p.nombre, hectareas: p.hectareas ? String(p.hectareas) : '', capacidad: p.capacidad ? String(p.capacidad) : '', descripcion: p.descripcion || '' }); setError(''); setShowModal(true) }
 
   async function handleSave() {
     setSaving(true); setError('')
     try {
-      const payload = { nombre: form.nombre, area: form.area ? parseFloat(form.area) : undefined, capacidad: form.capacidad ? parseInt(form.capacidad) : undefined, descripcion: form.descripcion || undefined }
+      const payload = { nombre: form.nombre, hectareas: form.hectareas ? parseFloat(form.hectareas) : undefined, capacidad: form.capacidad ? parseInt(form.capacidad) : undefined, descripcion: form.descripcion || undefined }
       if (editPotrero) { await api.patch(`/potreros/${editPotrero.id}`, payload, { token: token! }) }
       else { await api.post('/potreros', payload, { token: token! }) }
       setShowModal(false); fetchPotreros()
@@ -94,7 +94,7 @@ export default function PotrerosPage() {
                   </div>
 
                   <div className="space-y-2 text-sm text-gray-600 mb-4">
-                    {p.area && <div className="flex justify-between"><span>📐 Área</span><span className="font-medium">{p.area} ha</span></div>}
+                    {p.hectareas && <div className="flex justify-between"><span>📐 Área</span><span className="font-medium">{p.hectareas} ha</span></div>}
                     <div className="flex justify-between">
                       <span>🐄 Animales activos</span>
                       <span className="font-medium">{p._count?.animales ?? 0}{p.capacidad ? ` / ${p.capacidad}` : ''}</span>
@@ -158,7 +158,7 @@ export default function PotrerosPage() {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Área (hectáreas)</label>
-                  <input type="number" step="0.1" value={form.area} onChange={e => setForm(p => ({ ...p, area: e.target.value }))} placeholder="0.0" className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm" />
+                  <input type="number" step="0.1" value={form.hectareas} onChange={e => setForm(p => ({ ...p, hectareas: e.target.value }))} placeholder="0.0" className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Capacidad (animales)</label>
