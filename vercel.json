@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm --filter @ganasoft/web next build",
+  "outputDirectory": "apps/web/.next",
+  "installCommand": "pnpm install --no-frozen-lockfile",
+  "framework": "nextjs"
+}
