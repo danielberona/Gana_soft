@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '@/lib/auth'
 import { api } from '@/lib/api'
 import Link from 'next/link'
-import { Beef, TrendingUp, CheckSquare, Syringe, ArrowUpRight, Activity, AlertCircle } from 'lucide-react'
+import { Beef, TrendingUp, CheckSquare, Syringe, ArrowUpRight, Activity, AlertCircle, HeartPulse, Baby, TreePine, BarChart3, Users } from 'lucide-react'
 import type { DashboardData, Especie } from '@/types'
 
 const especieLabel: Record<Especie, string> = { BOVINO: 'Bovino', PORCINO: 'Porcino', OVINO: 'Ovino', CAPRINO: 'Caprino', EQUINO: 'Equino', AVICOLA: 'Avícola', OTRO: 'Otro' }
@@ -204,13 +204,13 @@ export default function DashboardPage() {
         <h3 className="font-semibold text-gray-900 text-sm mb-4">Acceso rápido</h3>
         <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3">
           {[
-            { href: '/dashboard/animales', icon: Beef, label: 'Animales', color: 'text-green-600 bg-green-50' },
-            { href: '/dashboard/salud', icon: Activity, label: 'Salud', color: 'text-red-600 bg-red-50' },
-            { href: '/dashboard/vacunaciones', icon: Syringe, label: 'Vacunas', color: 'text-blue-600 bg-blue-50' },
+            { href: '/dashboard/animales', icon: Beef, label: 'Animales', color: 'text-campo-600 bg-campo-50' },
+            { href: '/dashboard/salud', icon: HeartPulse, label: 'Salud', color: 'text-red-600 bg-red-50' },
+            { href: '/dashboard/vacunaciones', icon: Syringe, label: 'Vacunas', color: 'text-cielo-600 bg-cielo-50' },
             { href: '/dashboard/produccion', icon: TrendingUp, label: 'Producción', color: 'text-emerald-600 bg-emerald-50' },
-            { href: '/dashboard/reproduccion', icon: Activity, label: 'Reproducción', color: 'text-pink-600 bg-pink-50' },
-            { href: '/dashboard/potreros', icon: Activity, label: 'Potreros', color: 'text-teal-600 bg-teal-50' },
-            { href: '/dashboard/tareas', icon: CheckSquare, label: 'Tareas', color: 'text-amber-600 bg-amber-50' },
+            { href: '/dashboard/reproduccion', icon: Baby, label: 'Reproducción', color: 'text-pink-600 bg-pink-50' },
+            { href: '/dashboard/potreros', icon: TreePine, label: 'Potreros', color: 'text-teal-600 bg-teal-50' },
+            { href: '/dashboard/tareas', icon: CheckSquare, label: 'Tareas', color: 'text-tierra-600 bg-tierra-50' },
             { href: '/dashboard/reportes', icon: BarChart3, label: 'Reportes', color: 'text-violet-600 bg-violet-50' },
             { href: '/dashboard/usuarios', icon: Users, label: 'Usuarios', color: 'text-gray-600 bg-gray-100' },
           ].map(item => {

@@ -36,5 +36,5 @@
 }
 
 * { box-sizing: border-box; }
-html { -webkit-font-smoothing: antialiased; }
-body { background: #f8f5ef; color: #1a1208; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { background: #f4f6f4; color: #1a2b1c; font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, sans-serif; }

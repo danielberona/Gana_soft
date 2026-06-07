@@ -20,11 +20,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
+    <div className="min-h-screen flex bg-[#f4f6f4]">
       {/* Panel izquierdo - ilustración */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gray-900 flex-col justify-between p-12">
+      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 bg-[#0d1a0f]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-green-600 flex items-center justify-center">
+          <div className="w-9 h-9 rounded-xl bg-campo-500 flex items-center justify-center">
             <Beef className="w-5 h-5 text-white" />
           </div>
           <span className="text-white font-bold text-lg">Ganasoft</span>
@@ -33,7 +33,7 @@ export default function LoginPage() {
         <div>
           <h1 className="text-4xl font-bold text-white leading-tight mb-4">
             Gestión ganadera<br />
-            <span className="text-green-400">inteligente y simple</span>
+            <span className="text-campo-400">inteligente y simple</span>
           </h1>
           <p className="text-gray-400 text-base mb-10 leading-relaxed">
             Controla tu hato, registra producción, vacunaciones, salud y más — todo en un solo lugar, desde cualquier dispositivo.
@@ -46,8 +46,8 @@ export default function LoginPage() {
               { num: '9', label: 'Módulos disponibles' },
               { num: '24/7', label: 'Acceso desde cualquier lugar' },
             ].map(s => (
-              <div key={s.label} className="bg-gray-800 rounded-2xl p-4">
-                <p className="text-2xl font-bold text-green-400">{s.num}</p>
+              <div key={s.label} className="bg-[#162b19] rounded-2xl p-4">
+                <p className="text-2xl font-bold text-campo-400">{s.num}</p>
                 <p className="text-gray-400 text-sm mt-0.5">{s.label}</p>
               </div>
             ))}
@@ -62,7 +62,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="flex items-center gap-3 mb-8 lg:hidden">
-            <div className="w-9 h-9 rounded-xl bg-green-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-campo-500 flex items-center justify-center">
               <Beef className="w-5 h-5 text-white" />
             </div>
             <span className="text-gray-900 font-bold text-lg">Ganasoft</span>
@@ -88,7 +88,7 @@ export default function LoginPage() {
                 <input
                   type="email" value={email} onChange={e => setEmail(e.target.value)}
                   placeholder="admin@ganasoft.com" required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-campo-500 focus:border-transparent transition"
                 />
               </div>
             </div>
@@ -99,13 +99,13 @@ export default function LoginPage() {
                 <input
                   type="password" value={password} onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••" required
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-campo-500 focus:border-transparent transition"
                 />
               </div>
             </div>
             <button
               type="submit" disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-sm mt-2">
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-campo-500 hover:bg-campo-600 text-white font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-sm mt-2">
               {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Ingresando...</> : <>Iniciar sesión <ArrowRight className="w-4 h-4" /></>}
             </button>
           </form>

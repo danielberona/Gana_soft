@@ -45,9 +45,9 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   useEffect(() => { setSidebarOpen(false) }, [pathname])
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-[#f4f6f4]">
       <div className="text-center">
-        <div className="w-16 h-16 rounded-2xl bg-green-700 flex items-center justify-center mx-auto mb-4 shadow-lg">
+        <div className="w-16 h-16 rounded-2xl bg-campo-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
           <Beef className="w-8 h-8 text-white" />
         </div>
         <p className="text-gray-500 font-medium">Cargando Ganasoft...</p>
@@ -60,15 +60,15 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   const currentTitle = Object.entries(pageTitle).find(([k]) => pathname === k || (!pageTitle[pathname] && pathname.startsWith(k + '/')))?.[1] || 'Ganasoft'
 
   const Sidebar = ({ mobile = false }: { mobile?: boolean }) => (
-    <aside className={`${mobile ? 'w-72' : 'w-64'} flex flex-col h-full bg-gray-900`}>
+    <aside className={`${mobile ? 'w-72' : 'w-64'} flex flex-col h-full bg-[#0d1a0f]`}>
       {/* Logo */}
-      <div className="flex items-center gap-3 px-6 py-5 border-b border-gray-800">
-        <div className="w-9 h-9 rounded-xl bg-green-600 flex items-center justify-center flex-shrink-0">
+      <div className="flex items-center gap-3 px-6 py-5 border-b border-[#1c3020]">
+        <div className="w-9 h-9 rounded-xl bg-campo-500 flex items-center justify-center flex-shrink-0">
           <Beef className="w-5 h-5 text-white" />
         </div>
         <div>
           <p className="text-white font-bold text-base leading-tight">Ganasoft</p>
-          <p className="text-gray-500 text-xs">Gestión Ganadera</p>
+          <p className="text-[#4d7551] text-xs">Gestión Ganadera</p>
         </div>
         {mobile && (
           <button onClick={() => setSidebarOpen(false)} className="ml-auto text-gray-500 hover:text-white">
@@ -79,36 +79,36 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        <p className="text-gray-600 text-xs font-semibold uppercase tracking-wider px-3 mb-2">Menú</p>
+        <p className="text-[#3d6042] text-xs font-semibold uppercase tracking-wider px-3 mb-2">Menú</p>
         {filteredNav.map(item => {
           const active = item.exact ? pathname === item.href : pathname.startsWith(item.href)
           const Icon = item.icon
           return (
             <Link key={item.href} href={item.href}
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${active
-                ? 'bg-green-600 text-white'
-                : 'text-gray-400 hover:bg-gray-800 hover:text-white'}`}>
-              <Icon className={`w-4.5 h-4.5 flex-shrink-0 ${active ? 'text-white' : 'text-gray-500 group-hover:text-gray-300'}`} size={18} />
+                ? 'bg-campo-500 text-white shadow-sm'
+                : 'text-[#7a9e7e] hover:bg-[#162b19] hover:text-white'}`}>
+              <Icon className={`w-4.5 h-4.5 flex-shrink-0 ${active ? 'text-white' : 'text-[#4d7551] group-hover:text-[#7a9e7e]'}`} size={18} />
               {item.label}
-              {active && <ChevronRight className="w-3.5 h-3.5 ml-auto text-green-300" />}
+              {active && <ChevronRight className="w-3.5 h-3.5 ml-auto text-campo-200" />}
             </Link>
           )
         })}
       </nav>
 
       {/* User */}
-      <div className="px-3 py-4 border-t border-gray-800">
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800 mb-2">
-          <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+      <div className="px-3 py-4 border-t border-[#1c3020]">
+        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#162b19] mb-2">
+          <div className="w-8 h-8 rounded-full bg-campo-500 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
             {usuario.nombre.charAt(0).toUpperCase()}
           </div>
           <div className="min-w-0 flex-1">
             <p className="text-white text-sm font-medium truncate">{usuario.nombre}</p>
-            <p className="text-gray-500 text-xs">{usuario.rol === 'ADMIN' ? 'Administrador' : 'Empleado'}</p>
+            <p className="text-[#4d7551] text-xs">{usuario.rol === 'ADMIN' ? 'Administrador' : 'Empleado'}</p>
           </div>
         </div>
         <button onClick={logout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-400 hover:bg-gray-800 hover:text-white transition-all">
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-[#7a9e7e] hover:bg-[#162b19] hover:text-white transition-all">
           <LogOut size={16} className="flex-shrink-0" />
           Cerrar sesión
         </button>
@@ -117,7 +117,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50">
+    <div className="flex h-screen overflow-hidden bg-[#f4f6f4]">
       {/* Desktop sidebar */}
       <div className="hidden lg:flex flex-shrink-0">
         <Sidebar />
@@ -136,7 +136,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
       {/* Main */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="bg-white border-b border-gray-200 px-6 py-0 flex items-center gap-4 h-14 flex-shrink-0">
+        <header className="bg-white border-b border-gray-100 px-6 py-0 flex items-center gap-4 h-14 flex-shrink-0 shadow-sm">
           <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-gray-500 hover:text-gray-800">
             <Menu className="w-5 h-5" />
           </button>
@@ -147,7 +147,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
             <Bell className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2.5 pl-3 border-l border-gray-200">
-            <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-bold text-sm">
+            <div className="w-8 h-8 rounded-full bg-campo-500 flex items-center justify-center text-white font-bold text-sm">
               {usuario.nombre.charAt(0).toUpperCase()}
             </div>
             <span className="text-sm font-medium text-gray-700 hidden sm:block">{usuario.nombre.split(' ')[0]}</span>
