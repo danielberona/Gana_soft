@@ -18,7 +18,7 @@ export default function VacunacionesPage() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [vistaActiva, setVistaActiva] = useState<'historial' | 'proximas'>('historial')
-  const [form, setForm] = useState({ animalId: '', vacuna: '', dosis: '', lote: '', fecha: new Date().toISOString().slice(0, 10), proximaFecha: '', veterinario: '', costo: '' })
+  const [form, setForm] = useState({ animalId: '', vacuna: '', dosis: '', lote: '', fecha: new Date().toISOString().slice(0, 10), proximaDosis: '', veterinario: '', costo: '' })
 
   const fetchData = useCallback(async () => {
     if (!token) return
@@ -45,11 +45,11 @@ export default function VacunacionesPage() {
       await api.post('/vacunaciones', {
         ...form, animalId: parseInt(form.animalId),
         costo: form.costo ? parseFloat(form.costo) : undefined,
-        proximaFecha: form.proximaFecha || undefined,
+        proximaDosis: form.proximaDosis || undefined,
         dosis: form.dosis || undefined, lote: form.lote || undefined, veterinario: form.veterinario || undefined,
       }, { token: token! })
       setShowModal(false)
-      setForm({ animalId: '', vacuna: '', dosis: '', lote: '', fecha: new Date().toISOString().slice(0, 10), proximaFecha: '', veterinario: '', costo: '' })
+      setForm({ animalId: '', vacuna: '', dosis: '', lote: '', fecha: new Date().toISOString().slice(0, 10), proximaDosis: '', veterinario: '', costo: '' })
       fetchData()
     } catch (e) { setError(e instanceof Error ? e.message : 'Error') } finally { setSaving(false) }
   }
@@ -78,7 +78,7 @@ export default function VacunacionesPage() {
           </div>
           <div className="space-y-2">
             {proximas.slice(0, 5).map(v => {
-              const dias = diasHasta(v.proximaFecha!)
+              const dias = diasHasta(v.proximaDosis!)
               return (
                 <div key={v.id} className="flex items-center gap-3 text-sm">
                   <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${dias <= 7 ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'}`}>
@@ -88,7 +88,7 @@ export default function VacunacionesPage() {
                     {v.animal?.nombre || v.animal?.codigo}
                   </Link>
                   <span className="text-gray-600">· {v.vacuna}</span>
-                  <span className="text-gray-400 ml-auto">{new Date(v.proximaFecha!).toLocaleDateString('es-CO')}</span>
+                  <span className="text-gray-400 ml-auto">{new Date(v.proximaDosis!).toLocaleDateString('es-CO')}</span>
                 </div>
               )
             })}
@@ -128,9 +128,9 @@ export default function VacunacionesPage() {
                       <td className="px-4 py-3 text-sm text-gray-500">{v.veterinario || '—'}</td>
                       <td className="px-4 py-3 text-sm text-gray-500">{new Date(v.fecha).toLocaleDateString('es-CO')}</td>
                       <td className="px-4 py-3">
-                        {v.proximaFecha ? (
-                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${diasHasta(v.proximaFecha) <= 7 ? 'bg-red-100 text-red-700' : diasHasta(v.proximaFecha) <= 30 ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-600'}`}>
-                            {new Date(v.proximaFecha).toLocaleDateString('es-CO')}
+                        {v.proximaDosis ? (
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${diasHasta(v.proximaDosis) <= 7 ? 'bg-red-100 text-red-700' : diasHasta(v.proximaDosis) <= 30 ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-600'}`}>
+                            {new Date(v.proximaDosis).toLocaleDateString('es-CO')}
                           </span>
                         ) : '—'}
                       </td>
@@ -155,7 +155,7 @@ export default function VacunacionesPage() {
           ) : (
             <div className="divide-y divide-gray-50">
               {proximas.map((v: Vacunacion) => {
-                const dias = diasHasta(v.proximaFecha!)
+                const dias = diasHasta(v.proximaDosis!)
                 return (
                   <div key={v.id} className="p-4 flex items-center gap-4">
                     <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${dias <= 0 ? 'bg-red-100 text-red-700' : dias <= 7 ? 'bg-orange-100 text-orange-700' : 'bg-yellow-100 text-yellow-700'}`}>
@@ -165,7 +165,7 @@ export default function VacunacionesPage() {
                       <Link href={`/dashboard/animales/${v.animalId}`} className="font-medium text-green-600 hover:underline text-sm">{v.animal?.nombre || v.animal?.codigo}</Link>
                       <p className="text-sm text-gray-600">💉 {v.vacuna}{v.dosis && ` · ${v.dosis}`}</p>
                     </div>
-                    <span className="text-sm text-gray-500">{new Date(v.proximaFecha!).toLocaleDateString('es-CO')}</span>
+                    <span className="text-sm text-gray-500">{new Date(v.proximaDosis!).toLocaleDateString('es-CO')}</span>
                   </div>
                 )
               })}
@@ -216,7 +216,7 @@ export default function VacunacionesPage() {
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Próxima dosis</label>
-                  <input type="date" value={form.proximaFecha} onChange={e => setForm(p => ({ ...p, proximaFecha: e.target.value }))} className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm" />
+                  <input type="date" value={form.proximaDosis} onChange={e => setForm(p => ({ ...p, proximaDosis: e.target.value }))} className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Costo ($)</label>

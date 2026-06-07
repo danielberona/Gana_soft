@@ -27,9 +27,9 @@ export default function AnimalDetailPage() {
 
   const [saludForm, setSaludForm] = useState({ tipo: '', descripcion: '', fecha: new Date().toISOString().slice(0, 10), veterinario: '', costo: '' })
   const [pesajeForm, setPesajeForm] = useState({ peso: '', fecha: new Date().toISOString().slice(0, 10), observaciones: '' })
-  const [vacunaForm, setVacunaForm] = useState({ vacuna: '', dosis: '', lote: '', fecha: new Date().toISOString().slice(0, 10), proximaFecha: '', veterinario: '', costo: '' })
+  const [vacunaForm, setVacunaForm] = useState({ vacuna: '', dosis: '', lote: '', fecha: new Date().toISOString().slice(0, 10), proximaDosis: '', veterinario: '', costo: '' })
   const [produccionForm, setProduccionForm] = useState({ tipo: 'Leche', cantidad: '', unidad: 'litros', fecha: new Date().toISOString().slice(0, 10) })
-  const [reproduccionForm, setReproduccionForm] = useState({ tipo: 'CELO' as string, fecha: new Date().toISOString().slice(0, 10), descripcion: '', resultado: '' })
+  const [reproduccionForm, setReproduccionForm] = useState({ tipo: 'CELO' as string, fecha: new Date().toISOString().slice(0, 10), observaciones: '', resultado: '' })
 
   useEffect(() => {
     if (!token || !id) return
@@ -62,7 +62,7 @@ export default function AnimalDetailPage() {
     if (!animal) return
     setSaving(true)
     try {
-      await api.post('/vacunaciones', { ...vacunaForm, animalId: animal.id, costo: vacunaForm.costo ? parseFloat(vacunaForm.costo) : undefined, proximaFecha: vacunaForm.proximaFecha || undefined }, { token: token! })
+      await api.post('/vacunaciones', { ...vacunaForm, animalId: animal.id, costo: vacunaForm.costo ? parseFloat(vacunaForm.costo) : undefined, proximaDosis: vacunaForm.proximaDosis || undefined }, { token: token! })
       const updated = await api.get<Animal>(`/animales/${id}`, { token: token! })
       setAnimal(updated); setShowVacunaForm(false)
     } finally { setSaving(false) }
@@ -263,7 +263,7 @@ export default function AnimalDetailPage() {
                   <div><label className="text-xs font-medium text-gray-600 mb-1 block">Lote</label><input value={vacunaForm.lote} onChange={e => setVacunaForm(p => ({ ...p, lote: e.target.value }))} placeholder="Número de lote" className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm" /></div>
                   <div><label className="text-xs font-medium text-gray-600 mb-1 block">Veterinario</label><input value={vacunaForm.veterinario} onChange={e => setVacunaForm(p => ({ ...p, veterinario: e.target.value }))} placeholder="Nombre" className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm" /></div>
                   <div><label className="text-xs font-medium text-gray-600 mb-1 block">Fecha aplicación</label><input type="date" value={vacunaForm.fecha} onChange={e => setVacunaForm(p => ({ ...p, fecha: e.target.value }))} className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm" /></div>
-                  <div><label className="text-xs font-medium text-gray-600 mb-1 block">Próxima dosis</label><input type="date" value={vacunaForm.proximaFecha} onChange={e => setVacunaForm(p => ({ ...p, proximaFecha: e.target.value }))} className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm" /></div>
+                  <div><label className="text-xs font-medium text-gray-600 mb-1 block">Próxima dosis</label><input type="date" value={vacunaForm.proximaDosis} onChange={e => setVacunaForm(p => ({ ...p, proximaDosis: e.target.value }))} className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm" /></div>
                   <div><label className="text-xs font-medium text-gray-600 mb-1 block">Costo ($)</label><input type="number" value={vacunaForm.costo} onChange={e => setVacunaForm(p => ({ ...p, costo: e.target.value }))} placeholder="0" className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm" /></div>
                 </div>
                 <div className="flex gap-2"><button onClick={guardarVacuna} disabled={saving || !vacunaForm.vacuna} className="px-4 py-2 rounded-lg text-white text-sm disabled:opacity-60" style={{ background: '#35933a' }}>{saving ? 'Guardando...' : 'Guardar'}</button><button onClick={() => setShowVacunaForm(false)} className="px-4 py-2 rounded-lg border border-gray-200 text-sm">Cancelar</button></div>
@@ -282,7 +282,7 @@ export default function AnimalDetailPage() {
                       {v.lote && <span>Lote: {v.lote}</span>}
                       {v.veterinario && <span>👨‍⚕️ {v.veterinario}</span>}
                       {v.costo != null && <span>💰 ${v.costo.toLocaleString()}</span>}
-                      {v.proximaFecha && <span className="text-orange-600 font-medium">🔔 Próxima: {new Date(v.proximaFecha).toLocaleDateString('es-CO')}</span>}
+                      {v.proximaDosis && <span className="text-orange-600 font-medium">🔔 Próxima: {new Date(v.proximaDosis).toLocaleDateString('es-CO')}</span>}
                     </div>
                   </div>
                 ))}
@@ -344,7 +344,7 @@ export default function AnimalDetailPage() {
                     </select>
                   </div>
                   <div><label className="text-xs font-medium text-gray-600 mb-1 block">Fecha</label><input type="date" value={reproduccionForm.fecha} onChange={e => setReproduccionForm(p => ({ ...p, fecha: e.target.value }))} className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm" /></div>
-                  <div className="col-span-2"><label className="text-xs font-medium text-gray-600 mb-1 block">Descripción</label><textarea value={reproduccionForm.descripcion} onChange={e => setReproduccionForm(p => ({ ...p, descripcion: e.target.value }))} rows={2} placeholder="Detalles del evento..." className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm resize-none" /></div>
+                  <div className="col-span-2"><label className="text-xs font-medium text-gray-600 mb-1 block">Observaciones</label><textarea value={reproduccionForm.observaciones} onChange={e => setReproduccionForm(p => ({ ...p, observaciones: e.target.value }))} rows={2} placeholder="Detalles del evento..." className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm resize-none" /></div>
                   <div className="col-span-2"><label className="text-xs font-medium text-gray-600 mb-1 block">Resultado</label><input value={reproduccionForm.resultado} onChange={e => setReproduccionForm(p => ({ ...p, resultado: e.target.value }))} placeholder="Ej: Positivo, 2 crías, etc." className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm" /></div>
                 </div>
                 <div className="flex gap-2"><button onClick={guardarReproduccion} disabled={saving} className="px-4 py-2 rounded-lg text-white text-sm disabled:opacity-60" style={{ background: '#35933a' }}>{saving ? 'Guardando...' : 'Guardar'}</button><button onClick={() => setShowReproduccionForm(false)} className="px-4 py-2 rounded-lg border border-gray-200 text-sm">Cancelar</button></div>
@@ -358,7 +358,7 @@ export default function AnimalDetailPage() {
                       <span className="font-medium text-gray-800 text-sm">{tipoEventoLabel[e.tipo] || e.tipo}</span>
                       <span className="text-xs text-gray-400">{new Date(e.fecha).toLocaleDateString('es-CO')}</span>
                     </div>
-                    {e.descripcion && <p className="text-gray-600 text-sm mb-1">{e.descripcion}</p>}
+                    {e.observaciones && <p className="text-gray-600 text-sm mb-1">{e.observaciones}</p>}
                     {e.resultado && <p className="text-xs text-green-600 font-medium">Resultado: {e.resultado}</p>}
                   </div>
                 ))}
