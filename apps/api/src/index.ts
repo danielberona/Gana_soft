@@ -36,6 +36,9 @@ app.use('/api/pesajes', pesajesRoutes)
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', version: '2.0' }))
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`🐄 Ganasoft API v2.0 corriendo en http://localhost:${PORT}`))
+// Solo inicia el servidor en local, no en Vercel (serverless)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => console.log(`🐄 Ganasoft API v2.0 corriendo en http://localhost:${PORT}`))
+}
 
 export default app
