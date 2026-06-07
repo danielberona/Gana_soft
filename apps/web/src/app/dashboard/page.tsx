@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '@/lib/auth'
 import { api } from '@/lib/api'
 import Link from 'next/link'
-import { Beef, TrendingUp, CheckSquare, Syringe, ArrowUpRight, Activity, AlertCircle, HeartPulse, Baby, TreePine, BarChart3, Users } from 'lucide-react'
+import { Cow, TrendingUp, CheckSquare, Syringe, ArrowUpRight, Activity, AlertCircle, HeartPulse, Baby, TreePine, BarChart3, Users } from 'lucide-react'
 import type { DashboardData, Especie } from '@/types'
 
 const especieLabel: Record<Especie, string> = { BOVINO: 'Bovino', PORCINO: 'Porcino', OVINO: 'Ovino', CAPRINO: 'Caprino', EQUINO: 'Equino', AVICOLA: 'Avícola', OTRO: 'Otro' }
@@ -43,7 +43,7 @@ export default function DashboardPage() {
   )
 
   const kpis = [
-    { label: 'Total animales', value: data?.resumen.totalAnimales ?? 0, sub: 'en el inventario', icon: Beef, color: 'bg-green-600', href: '/dashboard/animales' },
+    { label: 'Total animales', value: data?.resumen.totalAnimales ?? 0, sub: 'en el inventario', icon: Cow, color: 'bg-green-600', href: '/dashboard/animales' },
     { label: 'Activos', value: data?.resumen.animalesActivos ?? 0, sub: `de ${data?.resumen.totalAnimales ?? 0} registrados`, icon: Activity, color: 'bg-emerald-500', href: '/dashboard/animales?estado=ACTIVO' },
     { label: 'Tareas pendientes', value: data?.resumen.tareasPendientes ?? 0, sub: 'por completar', icon: CheckSquare, color: 'bg-amber-500', href: '/dashboard/tareas' },
     { label: 'Vacunas próximas', value: data?.resumen.proximasVacunas ?? 0, sub: 'en los próximos 30 días', icon: Syringe, color: 'bg-blue-500', href: '/dashboard/vacunaciones' },
@@ -107,7 +107,7 @@ export default function DashboardPage() {
                 <Link key={a.id} href={`/dashboard/animales/${a.id}`}
                   className="flex items-center gap-4 px-5 py-3.5 hover:bg-gray-50/70 transition-colors">
                   <div className="w-9 h-9 rounded-xl bg-gray-100 flex items-center justify-center flex-shrink-0">
-                    <Beef className="w-4.5 h-4.5 text-gray-400" size={18} />
+                    <Cow className="w-4.5 h-4.5 text-gray-400" size={18} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-gray-900 text-sm truncate">{a.nombre || a.codigo}</p>
@@ -204,7 +204,7 @@ export default function DashboardPage() {
         <h3 className="font-semibold text-gray-900 text-sm mb-4">Acceso rápido</h3>
         <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3">
           {[
-            { href: '/dashboard/animales', icon: Beef, label: 'Animales', color: 'text-campo-600 bg-campo-50' },
+            { href: '/dashboard/animales', icon: Cow, label: 'Animales', color: 'text-campo-600 bg-campo-50' },
             { href: '/dashboard/salud', icon: HeartPulse, label: 'Salud', color: 'text-red-600 bg-red-50' },
             { href: '/dashboard/vacunaciones', icon: Syringe, label: 'Vacunas', color: 'text-cielo-600 bg-cielo-50' },
             { href: '/dashboard/produccion', icon: TrendingUp, label: 'Producción', color: 'text-emerald-600 bg-emerald-50' },
