@@ -4,14 +4,15 @@ import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { AuthProvider, useAuth } from '@/lib/auth'
 import {
-  LayoutDashboard, Cow, HeartPulse, Syringe, Milk, Baby,
+  LayoutDashboard, HeartPulse, Syringe, Milk, Baby,
   TreePine, CheckSquare, BarChart3, Users, LogOut, Menu, X,
   ChevronRight, Bell
 } from 'lucide-react'
+import { CowIcon } from '@/components/cow-icon'
 
 const navItems = [
   { href: '/dashboard', label: 'Inicio', icon: LayoutDashboard, exact: true },
-  { href: '/dashboard/animales', label: 'Animales', icon: Cow },
+  { href: '/dashboard/animales', label: 'Animales', icon: CowIcon },
   { href: '/dashboard/salud', label: 'Salud', icon: HeartPulse },
   { href: '/dashboard/vacunaciones', label: 'Vacunaciones', icon: Syringe },
   { href: '/dashboard/produccion', label: 'Producción', icon: Milk },
