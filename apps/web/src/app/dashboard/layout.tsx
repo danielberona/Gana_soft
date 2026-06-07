@@ -6,7 +6,7 @@ import { AuthProvider, useAuth } from '@/lib/auth'
 import {
   LayoutDashboard, Cow, HeartPulse, Syringe, Milk, Baby,
   TreePine, CheckSquare, BarChart3, Users, LogOut, Menu, X,
-  ChevronRight, Bell
+  ChevronRight, Bell, Wheat
 } from 'lucide-react'
 
 const navItems = [
@@ -48,7 +48,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen flex items-center justify-center bg-[#f4f6f4]">
       <div className="text-center">
         <div className="w-16 h-16 rounded-2xl bg-campo-600 flex items-center justify-center mx-auto mb-4 shadow-lg">
-          <Cow className="w-8 h-8 text-white" />
+          <Wheat className="w-8 h-8 text-white" />
         </div>
         <p className="text-gray-500 font-medium">Cargando Ganasoft...</p>
       </div>
@@ -64,7 +64,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
       {/* Logo */}
       <div className="flex items-center gap-3 px-6 py-5 border-b border-[#1c3020]">
         <div className="w-9 h-9 rounded-xl bg-campo-500 flex items-center justify-center flex-shrink-0">
-          <Cow className="w-5 h-5 text-white" />
+          <Wheat className="w-5 h-5 text-white" />
         </div>
         <div>
           <p className="text-white font-bold text-base leading-tight">Ganasoft</p>
