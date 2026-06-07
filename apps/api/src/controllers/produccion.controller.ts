@@ -17,7 +17,8 @@ export async function getProduccion(req: AuthRequest, res: Response) {
 
 export async function createProduccion(req: AuthRequest, res: Response) {
   const data = produccionSchema.parse(req.body)
-  const produccion = await prisma.produccion.create({ data })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const produccion = await prisma.produccion.create({ data: data as any })
   res.status(201).json(produccion)
 }
 
@@ -31,6 +32,7 @@ export async function getRegistrosSalud(req: AuthRequest, res: Response) {
 
 export async function createRegistroSalud(req: AuthRequest, res: Response) {
   const data = saludSchema.parse(req.body)
-  const registro = await prisma.registroSalud.create({ data })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const registro = await prisma.registroSalud.create({ data: data as any })
   res.status(201).json(registro)
 }

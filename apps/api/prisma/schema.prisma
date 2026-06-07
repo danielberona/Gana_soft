@@ -16,35 +16,71 @@ model Usuario {
   activo    Boolean  @default(true)
   creadoEn  DateTime @default(now())
   animales  Animal[]
+  tareas    Tarea[]
 
   @@map("usuarios")
 }
 
+model Potrero {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  area        Float?
+  capacidad   Int?
+  descripcion String?
+  activo      Boolean  @default(true)
+  creadoEn    DateTime @default(now())
+  animales    Animal[]
+
+  @@map("potreros")
+}
+
 model Animal {
-  id            Int          @id @default(autoincrement())
-  codigo        String       @unique
-  nombre        String?
-  especie       Especie
-  raza          String?
-  sexo          Sexo
-  fechaNac      DateTime?
-  peso          Float?
-  estado        EstadoAnimal @default(ACTIVO)
-  observaciones String?
-  creadoEn      DateTime     @default(now())
-  actualizadoEn DateTime     @updatedAt
-  usuarioId     Int?
-  usuario       Usuario?     @relation(fields: [usuarioId], references: [id])
-  registros     RegistroSalud[]
-  producciones  Produccion[]
+  id                  Int                  @id @default(autoincrement())
+  codigo              String               @unique
+  nombre              String?
+  especie             Especie
+  raza                String?
+  sexo                Sexo
+  color               String?
+  numeroArete         String?
+  fechaNac            DateTime?
+  peso                Float?
+  estado              EstadoAnimal         @default(ACTIVO)
+  observaciones       String?
+  potreroId           Int?
+  potrero             Potrero?             @relation(fields: [potreroId], references: [id])
+  padreId             Int?
+  madreId             Int?
+  creadoEn            DateTime             @default(now())
+  actualizadoEn       DateTime             @updatedAt
+  usuarioId           Int?
+  usuario             Usuario?             @relation(fields: [usuarioId], references: [id])
+  registros           RegistroSalud[]
+  producciones        Produccion[]
+  vacunaciones        Vacunacion[]
+  eventosReproductivos EventoReproductivo[]
+  pesajes             PesajeHistorial[]
+  tareas              Tarea[]
 
   @@map("animales")
+}
+
+model PesajeHistorial {
+  id            Int      @id @default(autoincrement())
+  animalId      Int
+  animal        Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  peso          Float
+  fecha         DateTime @default(now())
+  observaciones String?
+  creadoEn      DateTime @default(now())
+
+  @@map("pesajes_historial")
 }
 
 model RegistroSalud {
   id          Int      @id @default(autoincrement())
   animalId    Int
-  animal      Animal   @relation(fields: [animalId], references: [id])
+  animal      Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
   tipo        String
   descripcion String   @db.Text
   fecha       DateTime @default(now())
@@ -55,10 +91,40 @@ model RegistroSalud {
   @@map("registros_salud")
 }
 
+model Vacunacion {
+  id           Int       @id @default(autoincrement())
+  animalId     Int
+  animal       Animal    @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  vacuna       String
+  dosis        String?
+  lote         String?
+  fecha        DateTime  @default(now())
+  proximaFecha DateTime?
+  veterinario  String?
+  costo        Float?
+  creadoEn     DateTime  @default(now())
+
+  @@map("vacunaciones")
+}
+
+model EventoReproductivo {
+  id          Int        @id @default(autoincrement())
+  animalId    Int
+  animal      Animal     @relation(fields: [animalId], references: [id], onDelete: Cascade)
+  tipo        TipoEvento
+  fecha       DateTime   @default(now())
+  descripcion String?
+  resultado   String?
+  padreId     Int?
+  creadoEn    DateTime   @default(now())
+
+  @@map("eventos_reproductivos")
+}
+
 model Produccion {
   id       Int      @id @default(autoincrement())
   animalId Int
-  animal   Animal   @relation(fields: [animalId], references: [id])
+  animal   Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
   tipo     String
   cantidad Float
   unidad   String
@@ -66,6 +132,22 @@ model Produccion {
   creadoEn DateTime @default(now())
 
   @@map("producciones")
+}
+
+model Tarea {
+  id          Int         @id @default(autoincrement())
+  titulo      String
+  descripcion String?
+  fecha       DateTime
+  estado      EstadoTarea @default(PENDIENTE)
+  prioridad   Prioridad   @default(MEDIA)
+  animalId    Int?
+  animal      Animal?     @relation(fields: [animalId], references: [id], onDelete: SetNull)
+  usuarioId   Int?
+  usuario     Usuario?    @relation(fields: [usuarioId], references: [id], onDelete: SetNull)
+  creadoEn    DateTime    @default(now())
+
+  @@map("tareas")
 }
 
 enum Rol {
@@ -93,4 +175,27 @@ enum EstadoAnimal {
   VENDIDO
   MUERTO
   TRANSFERIDO
+}
+
+enum TipoEvento {
+  CELO
+  MONTA
+  INSEMINACION
+  PRENEZ_CONFIRMADA
+  PARTO
+  ABORTO
+  DESTETE
+}
+
+enum EstadoTarea {
+  PENDIENTE
+  EN_PROGRESO
+  COMPLETADA
+  CANCELADA
+}
+
+enum Prioridad {
+  ALTA
+  MEDIA
+  BAJA
 }
