@@ -16,8 +16,10 @@ export async function getUsuarios(_req: AuthRequest, res: Response) {
 export async function createUsuario(req: AuthRequest, res: Response) {
   const data = createSchema.parse(req.body)
   const hashedPassword = await bcrypt.hash(data.password, 10)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const usuario = await prisma.usuario.create({ data: { ...data, password: hashedPassword } as any, select: { id: true, nombre: true, email: true, rol: true, activo: true, creadoEn: true } })
+  const usuario = await prisma.usuario.create({
+    data: { nombre: data.nombre, email: data.email, password: hashedPassword, rol: data.rol },
+    select: { id: true, nombre: true, email: true, rol: true, activo: true, creadoEn: true },
+  })
   res.status(201).json(usuario)
 }
 
