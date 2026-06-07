@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth'
-import { Wheat, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react'
+import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react'
 
 export default function LoginPage() {
   const { login } = useAuth()
@@ -24,9 +24,7 @@ export default function LoginPage() {
       {/* Panel izquierdo - ilustración */}
       <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 bg-[#0d1a0f]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-campo-500 flex items-center justify-center">
-            <Wheat className="w-5 h-5 text-white" />
-          </div>
+          <img src="/logo.png" alt="Ganasoft" className="w-10 h-10 rounded-full object-cover shadow-md" />
           <span className="text-white font-bold text-lg">Ganasoft</span>
         </div>
 
@@ -62,9 +60,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="flex items-center gap-3 mb-8 lg:hidden">
-            <div className="w-9 h-9 rounded-xl bg-campo-500 flex items-center justify-center">
-              <Wheat className="w-5 h-5 text-white" />
-            </div>
+            <img src="/logo.png" alt="Ganasoft" className="w-10 h-10 rounded-full object-cover shadow-sm" />
             <span className="text-gray-900 font-bold text-lg">Ganasoft</span>
           </div>
 
