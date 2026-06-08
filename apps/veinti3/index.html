@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VEINTI3 — Moda Colombiana</title>
+  <meta name="description" content="Veinti3 — Moda colombiana con estilo. Prendas únicas que expresan tu esencia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F5F0E8;
+      --beige:   #E8DDD0;
+      --sand:    #D4C4B0;
+      --caramel: #B8976E;
+      --mocha:   #8B6347;
+      --espresso:#4A2E1A;
+      --white:   #FDFAF6;
+      --text:    #2C1810;
+
+      --ig-grad: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --radius: 2px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2rem;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    nav.scrolled { border-bottom-color: var(--sand); }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--espresso);
+      text-decoration: none;
+    }
+    .nav-logo span {
+      background: var(--ig-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--espresso); }
+
+    .nav-ig {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--mocha);
+      transition: color var(--transition);
+    }
+    .nav-ig svg { width: 18px; height: 18px; }
+    .nav-ig:hover { color: var(--espresso); }
+
+    .hamburger { display: none; background: none; border: none; cursor: pointer; }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--espresso); margin: 5px 0;
+      transition: var(--transition);
+    }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding-top: 80px;
+    }
+
+    .hero-text {
+      padding: 4rem 3rem 4rem 5rem;
+    }
+
+    .hero-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 30px; height: 1px;
+      background: var(--caramel);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--espresso);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--caramel); }
+
+    .hero-sub {
+      font-size: 0.8rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--mocha);
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--white);
+      background: var(--espresso);
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .hero-cta:hover { background: var(--mocha); transform: translateY(-2px); }
+    .hero-cta svg { width: 16px; height: 16px; }
+
+    .hero-img {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-img-bg {
+      width: 100%; height: 100%;
+      background: var(--beige);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    /* Fashion illustration placeholder */
+    .fashion-silhouette {
+      width: 280px;
+      opacity: 0.9;
+    }
+
+    .hero-number {
+      position: absolute;
+      bottom: 3rem;
+      left: 3rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 9rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--sand);
+      opacity: 0.6;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── STATS BAR ──────────────────────────────── */
+    .stats {
+      background: var(--espresso);
+      color: var(--cream);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .stat-item {
+      padding: 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--sand);
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTION HEADER ─────────────────────────── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: var(--espresso);
+    }
+    .section-title em { font-style: italic; color: var(--caramel); }
+
+    /* ── COLECCIONES ────────────────────────────── */
+    .colecciones {
+      padding: 6rem 5rem;
+    }
+    .colecciones-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .coleccion-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+    .coleccion-card:first-child {
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+
+    .card-bg {
+      width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .coleccion-card:hover .card-bg { transform: scale(1.04); }
+
+    .card-bg-1 { background: linear-gradient(160deg, #D4C4B0, #B8976E); }
+    .card-bg-2 { background: linear-gradient(160deg, #C8B89A, #8B6347); }
+    .card-bg-3 { background: linear-gradient(160deg, #E8DDD0, #D4C4B0); }
+    .card-bg-4 { background: linear-gradient(160deg, #B8A090, #6B4A30); }
+
+    .card-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(42,18,8,0.7) 0%, transparent 60%);
+    }
+    .card-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 0.4rem;
+    }
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+    }
+    .card-cta {
+      margin-top: 0.8rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sand);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .coleccion-card:hover .card-cta { opacity: 1; transform: translateY(0); }
+
+    /* ── INSTAGRAM FEED ─────────────────────────── */
+    .ig-section {
+      padding: 6rem 5rem;
+      background: var(--beige);
+    }
+
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 4px;
+    }
+
+    .ig-item {
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .ig-item-bg {
+      width: 100%; height: 100%;
+      transition: transform 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ig-item:hover .ig-item-bg { transform: scale(1.06); }
+
+    .ig-overlay {
+      position: absolute; inset: 0;
+      background: rgba(42,18,8,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .ig-item:hover .ig-overlay { opacity: 1; }
+    .ig-overlay svg { width: 28px; height: 28px; color: white; }
+
+    .ig-bg-1 { background: linear-gradient(135deg, #E8DDD0, #C8B89A); }
+    .ig-bg-2 { background: linear-gradient(135deg, #D4C4B0, #B8976E); }
+    .ig-bg-3 { background: linear-gradient(135deg, #C0A890, #8B6347); }
+    .ig-bg-4 { background: linear-gradient(135deg, #B8A090, #6B4A30); }
+    .ig-bg-5 { background: linear-gradient(135deg, #D8C8B4, #A87848); }
+    .ig-bg-6 { background: linear-gradient(135deg, #E0D0BC, #C09870); }
+
+    .ig-cta-wrap {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .ig-follow-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      background: var(--ig-grad);
+      color: white;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .ig-follow-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    .ig-follow-btn svg { width: 18px; height: 18px; }
+
+    /* ── ABOUT ──────────────────────────────────── */
+    .about {
+      padding: 6rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+    .about-box-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--beige);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-box-accent {
+      position: absolute;
+      bottom: -2rem;
+      right: -2rem;
+      width: 60%;
+      aspect-ratio: 1;
+      background: var(--sand);
+      border-radius: var(--radius);
+      z-index: -1;
+    }
+    .about-badge {
+      position: absolute;
+      top: 2rem;
+      left: -2rem;
+      background: var(--espresso);
+      color: var(--cream);
+      padding: 1.5rem;
+      text-align: center;
+      border-radius: var(--radius);
+    }
+    .about-badge-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--sand);
+    }
+    .about-badge-text {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .about-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--espresso);
+      margin-bottom: 1.5rem;
+    }
+    .about-content h2 em { font-style: italic; color: var(--caramel); }
+
+    .about-content p {
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--mocha);
+      margin-bottom: 1rem;
+    }
+
+    .about-divider {
+      width: 40px; height: 1px;
+      background: var(--caramel);
+      margin: 2rem 0;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .about-tag {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      border: 1px solid var(--sand);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+    }
+
+    /* ── NEWSLETTER ─────────────────────────────── */
+    .newsletter {
+      background: var(--espresso);
+      padding: 5rem;
+      text-align: center;
+    }
+    .newsletter h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+    .newsletter h2 em { font-style: italic; color: var(--sand); }
+    .newsletter p {
+      font-size: 0.78rem;
+      color: var(--sand);
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-right: none;
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .newsletter-form input::placeholder { color: rgba(245,240,232,0.4); }
+    .newsletter-form input:focus { border-color: var(--sand); }
+    .newsletter-form button {
+      padding: 1rem 1.5rem;
+      background: var(--caramel);
+      border: 1px solid var(--caramel);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .newsletter-form button:hover { background: var(--mocha); }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--espresso);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 4rem 5rem 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand .nav-logo { display: block; margin-bottom: 1rem; color: var(--cream); }
+    .footer-brand .nav-logo span { background: var(--ig-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-brand p {
+      font-size: 0.75rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--sand);
+      max-width: 260px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.7rem; }
+    .footer-col ul li a {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--sand);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--cream); }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sand);
+      text-decoration: none;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .footer-social a:hover { border-color: var(--caramel); color: var(--cream); }
+    .footer-social svg { width: 16px; height: 16px; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-bottom p {
+      font-size: 0.68rem;
+      color: rgba(212,196,176,0.5);
+    }
+    .footer-bottom p a { color: var(--caramel); text-decoration: none; }
+
+    /* ── FLOATING WA ────────────────────────────── */
+    .wa-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 200;
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+    .wa-float svg { width: 28px; height: 28px; color: white; }
+
+    /* ── MOBILE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-text { padding: 3rem 1.5rem 2rem; }
+      .hero-img { height: 50vw; min-height: 280px; }
+      .hero-number { font-size: 5rem; bottom: 1rem; left: 1rem; }
+
+      .stats { grid-template-columns: repeat(3,1fr); }
+      .stat-item { padding: 1.2rem; }
+      .stat-num { font-size: 1.8rem; }
+
+      .colecciones { padding: 4rem 1.5rem; }
+      .colecciones-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+      .coleccion-card:first-child { grid-row: auto; }
+
+      .ig-section { padding: 4rem 1.5rem; }
+      .ig-grid { grid-template-columns: repeat(3, 1fr); }
+
+      .about { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
+      .about-badge { left: 0; }
+
+      .newsletter { padding: 4rem 1.5rem; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input { border-right: 1px solid rgba(255,255,255,0.2); border-bottom: none; }
+      .newsletter-form button { padding: 1rem; }
+
+      footer { padding: 3rem 1.5rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .ig-grid { grid-template-columns: repeat(3, 1fr); }
+      .colecciones-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── ANIMATIONS ─────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#inicio" class="nav-logo">VEINTI<span>3</span></a>
+    <ul class="nav-links">
+      <li><a href="#colecciones">Colecciones</a></li>
+      <li><a href="#nosotras">Nosotras</a></li>
+      <li><a href="#instagram">Instagram</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="https://www.instagram.com/veinti3.col" target="_blank" rel="noopener" class="nav-ig">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      @veinti3.col
+    </a>
+    <button class="hamburger" aria-label="Menú" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-text">
+      <p class="hero-tag">Moda Colombiana</p>
+      <h1 class="hero-title">
+        Tu estilo,<br>
+        tu <em>esencia.</em>
+      </h1>
+      <p class="hero-sub">
+        Prendas diseñadas para la mujer que celebra su femineidad con elegancia y autenticidad. Cada pieza, una historia.
+      </p>
+      <a href="https://www.instagram.com/veinti3.col" target="_blank" rel="noopener" class="hero-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Ver colección
+      </a>
+    </div>
+    <div class="hero-img">
+      <div class="hero-img-bg">
+        <!-- Fashion SVG Illustration -->
+        <svg class="fashion-silhouette" viewBox="0 0 240 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Head -->
+          <ellipse cx="120" cy="42" rx="28" ry="32" fill="#C8B4A0"/>
+          <!-- Hair -->
+          <path d="M92 30 Q88 10 120 8 Q152 10 148 30" fill="#6B4A30"/>
+          <path d="M92 30 Q82 50 88 70" stroke="#6B4A30" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <path d="M148 30 Q158 50 152 70" stroke="#6B4A30" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <!-- Neck -->
+          <rect x="113" y="72" width="14" height="20" rx="4" fill="#C8B4A0"/>
+          <!-- Body/Dress -->
+          <path d="M88 92 Q80 88 72 100 L60 180 Q100 185 120 185 Q140 185 180 180 L168 100 Q160 88 152 92 Q140 96 120 96 Q100 96 88 92Z" fill="#B8976E"/>
+          <!-- Collar detail -->
+          <path d="M103 92 L120 115 L137 92" stroke="#E8DDD0" stroke-width="1.5" fill="none"/>
+          <!-- Belt -->
+          <rect x="85" y="168" width="70" height="10" rx="2" fill="#6B4A30" opacity="0.6"/>
+          <!-- Skirt -->
+          <path d="M75 178 Q72 240 65 320 Q90 330 120 330 Q150 330 175 320 Q168 240 165 178Z" fill="#C8A880"/>
+          <!-- Pleats -->
+          <path d="M100 178 Q98 250 95 320" stroke="#B89868" stroke-width="1" opacity="0.5"/>
+          <path d="M120 178 Q120 255 120 330" stroke="#B89868" stroke-width="1" opacity="0.5"/>
+          <path d="M140 178 Q142 250 145 320" stroke="#B89868" stroke-width="1" opacity="0.5"/>
+          <!-- Arms -->
+          <path d="M88 100 Q70 130 65 170" stroke="#C8B4A0" stroke-width="14" stroke-linecap="round" fill="none"/>
+          <path d="M152 100 Q170 130 175 170" stroke="#C8B4A0" stroke-width="14" stroke-linecap="round" fill="none"/>
+          <!-- Hands -->
+          <ellipse cx="64" cy="175" rx="8" ry="10" fill="#C8B4A0"/>
+          <ellipse cx="176" cy="175" rx="8" ry="10" fill="#C8B4A0"/>
+          <!-- Legs -->
+          <rect x="100" y="326" width="16" height="60" rx="6" fill="#C8B4A0"/>
+          <rect x="124" y="326" width="16" height="60" rx="6" fill="#C8B4A0"/>
+          <!-- Shoes -->
+          <ellipse cx="108" cy="388" rx="12" ry="6" fill="#4A2E1A"/>
+          <ellipse cx="132" cy="388" rx="12" ry="6" fill="#4A2E1A"/>
+          <rect x="106" y="380" width="4" height="14" rx="2" fill="#4A2E1A"/>
+          <rect x="130" y="380" width="4" height="14" rx="2" fill="#4A2E1A"/>
+        </svg>
+      </div>
+      <div class="hero-number">23</div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item fade-up">
+      <div class="stat-num">+500</div>
+      <div class="stat-label">Clientas felices</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-num">23</div>
+      <div class="stat-label">Estilos únicos</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Hecho en Colombia</div>
+    </div>
+  </div>
+
+  <!-- COLECCIONES -->
+  <section class="colecciones" id="colecciones">
+    <div class="section-header fade-up">
+      <p class="section-tag">Temporada 2026</p>
+      <h2 class="section-title">Nuestras <em>Colecciones</em></h2>
+    </div>
+    <div class="colecciones-grid">
+      <div class="coleccion-card fade-up">
+        <div class="card-bg card-bg-1">
+          <svg width="80" height="120" viewBox="0 0 80 120" fill="none" opacity="0.3">
+            <path d="M40 10 Q20 30 15 60 Q10 90 40 110 Q70 90 65 60 Q60 30 40 10Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <span class="card-label">Colección</span>
+          <span class="card-name">Tierra<br>Dorada</span>
+          <span class="card-cta">Ver prendas →</span>
+        </div>
+      </div>
+      <div class="coleccion-card fade-up">
+        <div class="card-bg card-bg-2">
+          <svg width="60" height="90" viewBox="0 0 60 90" fill="none" opacity="0.3">
+            <path d="M30 5 L10 30 L10 85 L50 85 L50 30 Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <span class="card-label">Esenciales</span>
+          <span class="card-name">Nude<br>Edit</span>
+          <span class="card-cta">Explorar →</span>
+        </div>
+      </div>
+      <div class="coleccion-card fade-up">
+        <div class="card-bg card-bg-3">
+          <svg width="70" height="80" viewBox="0 0 70 80" fill="none" opacity="0.3">
+            <ellipse cx="35" cy="40" rx="30" ry="35" fill="white"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <span class="card-label">Casual</span>
+          <span class="card-name">Crema<br>Days</span>
+          <span class="card-cta">Ver más →</span>
+        </div>
+      </div>
+      <div class="coleccion-card fade-up">
+        <div class="card-bg card-bg-4">
+          <svg width="65" height="100" viewBox="0 0 65 100" fill="none" opacity="0.3">
+            <path d="M32 5 Q5 20 8 50 Q5 80 32 95 Q60 80 57 50 Q60 20 32 5Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <span class="card-label">Premium</span>
+          <span class="card-name">Café<br>Oscuro</span>
+          <span class="card-cta">Descubrir →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM FEED -->
+  <section class="ig-section" id="instagram">
+    <div class="section-header fade-up">
+      <p class="section-tag">Instagram</p>
+      <h2 class="section-title">Síguenos en <em>@veinti3.col</em></h2>
+    </div>
+    <div class="ig-grid">
+      <div class="ig-item"><div class="ig-item-bg ig-bg-1"></div><div class="ig-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></div>
+      <div class="ig-item"><div class="ig-item-bg ig-bg-2"></div><div class="ig-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></div>
+      <div class="ig-item"><div class="ig-item-bg ig-bg-3"></div><div class="ig-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></div>
+      <div class="ig-item"><div class="ig-item-bg ig-bg-4"></div><div class="ig-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></div>
+      <div class="ig-item"><div class="ig-item-bg ig-bg-5"></div><div class="ig-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></div>
+      <div class="ig-item"><div class="ig-item-bg ig-bg-6"></div><div class="ig-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></div></div>
+    </div>
+    <div class="ig-cta-wrap fade-up">
+      <a href="https://www.instagram.com/veinti3.col" target="_blank" rel="noopener" class="ig-follow-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Seguir en Instagram
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="nosotras">
+    <div class="about-visual fade-up">
+      <div class="about-box-main">
+        <svg width="140" height="200" viewBox="0 0 140 200" fill="none">
+          <path d="M70 15 Q40 35 35 80 Q28 130 70 185 Q112 130 105 80 Q100 35 70 15Z" fill="#D4C4B0" opacity="0.8"/>
+          <path d="M70 40 Q52 55 50 85 Q46 115 70 145 Q94 115 90 85 Q88 55 70 40Z" fill="#B8976E" opacity="0.6"/>
+          <text x="50" y="108" font-family="serif" font-size="36" fill="#8B6347" opacity="0.8" font-style="italic">23</text>
+        </svg>
+      </div>
+      <div class="about-box-accent"></div>
+      <div class="about-badge">
+        <div class="about-badge-num">23</div>
+        <div class="about-badge-text">Años de<br>pasión</div>
+      </div>
+    </div>
+
+    <div class="about-content fade-up">
+      <h2>Moda que <em>habla</em><br>por ti.</h2>
+      <div class="about-divider"></div>
+      <p>
+        En Veinti3 creemos que la ropa es más que tela — es expresión, identidad y confianza. Cada prenda nace del amor por el diseño colombiano y el deseo de hacer sentir especial a cada mujer.
+      </p>
+      <p>
+        Trabajamos con materiales cuidadosamente seleccionados y talleres locales para garantizar calidad, durabilidad y un estilo que perdura más allá de las tendencias.
+      </p>
+      <div class="about-tags">
+        <span class="about-tag">Moda femenina</span>
+        <span class="about-tag">Hecho en Colombia</span>
+        <span class="about-tag">Tallajes inclusivos</span>
+        <span class="about-tag">Envíos nacionales</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter" id="contacto">
+    <h2 class="fade-up">Sé la primera en <em>saber.</em></h2>
+    <p class="fade-up">Recibe las nuevas colecciones, descuentos exclusivos y novedades directamente en tu correo.</p>
+    <form class="newsletter-form fade-up" onsubmit="handleSubmit(event)">
+      <input type="email" placeholder="Tu correo electrónico" required />
+      <button type="submit">Suscribirme</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#inicio" class="nav-logo">VEINTI<span>3</span></a>
+        <p>Moda colombiana que celebra tu esencia. Prendas únicas para mujeres únicas.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/veinti3.col" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/57" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Tienda</h4>
+        <ul>
+          <li><a href="#colecciones">Colecciones</a></li>
+          <li><a href="#colecciones">Nuevos ingresos</a></li>
+          <li><a href="#colecciones">Más vendidos</a></li>
+          <li><a href="#colecciones">Outlet</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="#">Guía de tallas</a></li>
+          <li><a href="#">Envíos</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contáctanos</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/veinti3.col" target="_blank">@veinti3.col</a></li>
+          <li><a href="https://wa.me/57" target="_blank">WhatsApp</a></li>
+          <li><a href="mailto:veinti3.col@gmail.com">veinti3.col@gmail.com</a></li>
+          <li><a href="#">Colombia 🇨🇴</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Veinti3. Todos los derechos reservados.</p>
+      <p>Hecho con ❤️ en Colombia</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/57" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Intersection Observer for fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Newsletter
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = '¡Listo! ✓';
+      btn.style.background = '#B8976E';
+      setTimeout(() => {
+        btn.textContent = 'Suscribirme';
+        btn.style.background = '';
+        e.target.reset();
+      }, 3000);
+    }
+
+    // Mobile menu toggle
+    function toggleMenu() {
+      const links = document.querySelector('.nav-links');
+      const isOpen = links.style.display === 'flex';
+      links.style.cssText = isOpen
+        ? ''
+        : 'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--cream);padding:2rem;gap:1.5rem;border-bottom:1px solid var(--sand);z-index:99;';
+    }
+  </script>
+</body>
+</html>
